@@ -18,6 +18,7 @@ function isActive(href: string) {
     <nav class="hidden md:flex items-center gap-1 text-base">
       <a href="/pomidory" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/pomidory') ? 'font-semibold text-[var(--color-tomato-dark)]' : ''}`}>Помідори</a>
       <a href="/pertsi" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/pertsi') ? 'font-semibold text-[var(--color-pepper)]' : ''}`}>Перці</a>
+      <a href="/halereya" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/halereya') ? 'font-semibold' : ''}`}>Галерея</a>
       <a href="/dohliad" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/dohliad') ? 'font-semibold' : ''}`}>Догляд</a>
       <a href="/kontakty" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/kontakty') ? 'font-semibold' : ''}`}>Контакти</a>
     </nav>
@@ -31,6 +32,7 @@ function isActive(href: string) {
     <div class="flex items-center text-sm">
       <a href="/pomidory" class={`flex-1 text-center px-3 py-3 ${isActive('/pomidory') ? 'font-semibold text-[var(--color-tomato-dark)] border-b-2 border-[var(--color-tomato)]' : ''}`}>Помідори</a>
       <a href="/pertsi" class={`flex-1 text-center px-3 py-3 ${isActive('/pertsi') ? 'font-semibold text-[var(--color-pepper)] border-b-2 border-[var(--color-pepper)]' : ''}`}>Перці</a>
+      <a href="/halereya" class={`flex-1 text-center px-3 py-3 ${isActive('/halereya') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Галерея</a>
       <a href="/dohliad" class={`flex-1 text-center px-3 py-3 ${isActive('/dohliad') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Догляд</a>
       <a href="/kontakty" class={`flex-1 text-center px-3 py-3 ${isActive('/kontakty') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Контакти</a>
     </div>
