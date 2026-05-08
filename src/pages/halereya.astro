@@ -12,58 +12,30 @@ type Photo = {
   fullName: string;
   image: any;
   index: number;
-  variantLabel: string | null;
 };
-
-type Group = {
-  baseName: string;
-  category: 'tomato' | 'pepper';
-  photos: Photo[];
-};
-
-function baseName(name: string): string {
-  return name.replace(/\s*\(.*?\)\s*$/, '').trim();
-}
-
-function variantLabel(name: string): string | null {
-  const m = name.match(/\(([^)]+)\)\s*$/);
-  return m ? m[1] : null;
-}
 
 const sorted = [...all].sort((a, b) => a.data.name.localeCompare(b.data.name, 'uk'));
 
-const groupMap = new Map<string, Group>();
+const tomatoPhotos: Photo[] = [];
+const pepperPhotos: Photo[] = [];
+
 for (const v of sorted) {
-  const key = `${v.data.category}:${baseName(v.data.name)}`;
-  if (!groupMap.has(key)) {
-    groupMap.set(key, {
-      baseName: baseName(v.data.name),
-      category: v.data.category,
-      photos: [],
-    });
-  }
-  const group = groupMap.get(key)!;
   const images = getVarietyImages(v.data.slug);
   images.forEach((img, i) => {
-    group.photos.push({
+    const photo: Photo = {
       slug: v.data.slug,
       fullName: v.data.name,
       image: img,
       index: i,
-      variantLabel: variantLabel(v.data.name),
-    });
+    };
+    if (v.data.category === 'tomato') tomatoPhotos.push(photo);
+    else pepperPhotos.push(photo);
   });
 }
 
-const tomatoGroups = [...groupMap.values()]
-  .filter((g) => g.category === 'tomato')
-  .sort((a, b) => a.baseName.localeCompare(b.baseName, 'uk'));
-
-const pepperGroups = [...groupMap.values()]
-  .filter((g) => g.category === 'pepper')
-  .sort((a, b) => a.baseName.localeCompare(b.baseName, 'uk'));
-
-const totalPhotos = [...groupMap.values()].reduce((acc, g) => acc + g.photos.length, 0);
+const totalPhotos = tomatoPhotos.length + pepperPhotos.length;
+const tomatoSorts = new Set(tomatoPhotos.map((p) => p.slug)).size;
+const pepperSorts = new Set(pepperPhotos.map((p) => p.slug)).size;
 ---
 <Base
   title="Галерея"
@@ -73,112 +45,81 @@ const totalPhotos = [...groupMap.values()].reduce((acc, g) => acc + g.photos.len
     <nav class="text-sm text-[var(--color-muted)] mb-4">
       <a href="/" class="hover:underline">Головна</a> <span aria-hidden="true">›</span> Галерея
     </nav>
-    <span class="section-eyebrow">Фото · {totalPhotos} знімків</span>
+    <span class="section-eyebrow">Фото · {totalPhotos} знімків · {tomatoSorts + pepperSorts} сортів</span>
     <h1 class="text-4xl sm:text-5xl font-extrabold mb-3">Галерея</h1>
-    <p class="text-lg text-[var(--color-muted)] mb-10 max-w-2xl">
+    <p class="text-lg text-[var(--color-muted)] mb-8 max-w-2xl">
       Усі фото сортів — справжні кущі та плоди з мого городу. Натисни на фото — побачиш повний опис сорту.
     </p>
 
-    <section class="mb-14">
+    <div class="flex flex-wrap gap-2 mb-10">
+      <a href="#pomidory" class="chip"><span aria-hidden="true">🍅</span> Помідори · {tomatoSorts}</a>
+      <a href="#pertsi" class="chip"><span aria-hidden="true">🌶️</span> Перці · {pepperSorts}</a>
+    </div>
+
+    <section id="pomidory" class="mb-14 scroll-mt-24">
       <div class="flex items-end justify-between gap-4 mb-6">
         <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
-          <span aria-hidden="true">🍅</span>
+          <span class="size-9 rounded-xl bg-[#FEE2E2] flex items-center justify-center text-xl" aria-hidden="true">🍅</span>
           Помідори
-          <span class="text-base font-medium text-[var(--color-muted)] ml-1">· {tomatoGroups.length} сорт{tomatoGroups.length === 1 ? '' : 'ів'}</span>
+          <span class="text-base font-medium text-[var(--color-muted)] ml-1">· {tomatoSorts} {tomatoSorts === 1 ? 'сорт' : 'сорти'}</span>
         </h2>
         <a href="/pomidory" class="hidden sm:inline-flex items-center gap-1 text-[var(--color-tomato-dark)] font-semibold hover:gap-2 transition-all text-sm">Каталог <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="space-y-8">
-        {tomatoGroups.map((group) => (
-          <div>
-            <div class="flex items-baseline gap-2 mb-3 pb-2 border-b border-[var(--color-border)]">
-              <h3 class="text-xl sm:text-2xl font-bold">{group.baseName}</h3>
-              <span class="text-sm text-[var(--color-muted)]">
-                {group.photos.length} фото
-                {(() => {
-                  const variants = [...new Set(group.photos.map((p) => p.variantLabel).filter(Boolean))];
-                  return variants.length > 0 ? ` · ${variants.join(', ')}` : '';
-                })()}
-              </span>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
-              {group.photos.map((photo) => (
-                <a
-                  href={`${categoryPath(group.category)}/${photo.slug}`}
-                  class="card-hover group relative block aspect-square overflow-hidden rounded-xl ring-1 ring-black/5 bg-[var(--color-bg)]"
-                >
-                  <Image
-                    src={photo.image}
-                    alt={`${photo.fullName}${photo.index > 0 ? ` — фото ${photo.index + 1}` : ''}`}
-                    widths={[240, 360, 480]}
-                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
-                    loading="lazy"
-                    class="absolute inset-0 object-cover group-hover:scale-[1.05] transition-transform duration-500 ease-out"
-                    style="width: 100%; height: 100%; object-position: center 60%;"
-                  />
-                  {photo.variantLabel && (
-                    <span class="absolute top-2 left-2 inline-flex items-center px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-xs font-semibold text-[var(--color-text)] ring-1 ring-black/5">
-                      {photo.variantLabel}
-                    </span>
-                  )}
-                  <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/55 via-black/15 to-transparent pointer-events-none" aria-hidden="true"></div>
-                </a>
-              ))}
-            </div>
-          </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
+        {tomatoPhotos.map((photo) => (
+          <a
+            href={`${categoryPath('tomato')}/${photo.slug}`}
+            class="card-hover group relative block aspect-square overflow-hidden rounded-xl ring-1 ring-black/5 bg-[var(--color-bg)]"
+          >
+            <Image
+              src={photo.image}
+              alt={`${photo.fullName}${photo.index > 0 ? ` — фото ${photo.index + 1}` : ''}`}
+              widths={[240, 360, 480]}
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+              loading="lazy"
+              class="absolute inset-0 object-cover group-hover:scale-[1.05] transition-transform duration-500 ease-out"
+              style="width: 100%; height: 100%; object-position: center 60%;"
+            />
+            <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/55 via-black/15 to-transparent pointer-events-none" aria-hidden="true"></div>
+            <h3 class="absolute inset-x-2.5 bottom-2 text-white font-bold text-sm sm:text-base leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+              {photo.fullName}
+            </h3>
+          </a>
         ))}
       </div>
     </section>
 
-    <section>
+    <section id="pertsi" class="scroll-mt-24">
       <div class="flex items-end justify-between gap-4 mb-6">
         <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
-          <span aria-hidden="true">🌶️</span>
+          <span class="size-9 rounded-xl bg-[#FED7AA] flex items-center justify-center text-xl" aria-hidden="true">🌶️</span>
           Перці
-          <span class="text-base font-medium text-[var(--color-muted)] ml-1">· {pepperGroups.length} сорт{pepperGroups.length === 1 ? '' : 'ів'}</span>
+          <span class="text-base font-medium text-[var(--color-muted)] ml-1">· {pepperSorts} {pepperSorts === 1 ? 'сорт' : 'сорти'}</span>
         </h2>
         <a href="/pertsi" class="hidden sm:inline-flex items-center gap-1 text-[var(--color-pepper)] font-semibold hover:gap-2 transition-all text-sm">Каталог <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="space-y-8">
-        {pepperGroups.map((group) => (
-          <div>
-            <div class="flex items-baseline gap-2 mb-3 pb-2 border-b border-[var(--color-border)]">
-              <h3 class="text-xl sm:text-2xl font-bold">{group.baseName}</h3>
-              <span class="text-sm text-[var(--color-muted)]">
-                {group.photos.length} фото
-                {(() => {
-                  const variants = [...new Set(group.photos.map((p) => p.variantLabel).filter(Boolean))];
-                  return variants.length > 0 ? ` · ${variants.join(', ')}` : '';
-                })()}
-              </span>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
-              {group.photos.map((photo) => (
-                <a
-                  href={`${categoryPath(group.category)}/${photo.slug}`}
-                  class="card-hover group relative block aspect-square overflow-hidden rounded-xl ring-1 ring-black/5 bg-[var(--color-bg)]"
-                >
-                  <Image
-                    src={photo.image}
-                    alt={`${photo.fullName}${photo.index > 0 ? ` — фото ${photo.index + 1}` : ''}`}
-                    widths={[240, 360, 480]}
-                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
-                    loading="lazy"
-                    class="absolute inset-0 object-cover group-hover:scale-[1.05] transition-transform duration-500 ease-out"
-                    style="width: 100%; height: 100%; object-position: center 60%;"
-                  />
-                  {photo.variantLabel && (
-                    <span class="absolute top-2 left-2 inline-flex items-center px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-xs font-semibold text-[var(--color-text)] ring-1 ring-black/5">
-                      {photo.variantLabel}
-                    </span>
-                  )}
-                  <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/55 via-black/15 to-transparent pointer-events-none" aria-hidden="true"></div>
-                </a>
-              ))}
-            </div>
-          </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
+        {pepperPhotos.map((photo) => (
+          <a
+            href={`${categoryPath('pepper')}/${photo.slug}`}
+            class="card-hover group relative block aspect-square overflow-hidden rounded-xl ring-1 ring-black/5 bg-[var(--color-bg)]"
+          >
+            <Image
+              src={photo.image}
+              alt={`${photo.fullName}${photo.index > 0 ? ` — фото ${photo.index + 1}` : ''}`}
+              widths={[240, 360, 480]}
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+              loading="lazy"
+              class="absolute inset-0 object-cover group-hover:scale-[1.05] transition-transform duration-500 ease-out"
+              style="width: 100%; height: 100%; object-position: center 60%;"
+            />
+            <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/55 via-black/15 to-transparent pointer-events-none" aria-hidden="true"></div>
+            <h3 class="absolute inset-x-2.5 bottom-2 text-white font-bold text-sm sm:text-base leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+              {photo.fullName}
+            </h3>
+          </a>
         ))}
       </div>
     </section>
