@@ -1,0 +1,38 @@
+---
+import { SITE } from '../site.config';
+const { phone } = SITE;
+const path = Astro.url.pathname;
+function isActive(href: string) {
+  if (href === '/') return path === '/';
+  return path === href || path.startsWith(href + '/');
+}
+---
+<header class="scroll-header border-b border-[var(--color-border)] sticky top-0 z-30">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <a href="/" class="flex items-center gap-2.5 font-bold text-lg sm:text-xl group">
+      <span class="size-9 rounded-xl bg-gradient-to-br from-[var(--color-tomato)] to-[var(--color-pepper)] flex items-center justify-center text-white shadow-md shadow-[var(--color-tomato)]/20 group-hover:scale-105 transition-transform" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="size-5"><path d="M12 4c2 0 5 1 6 4 1 3-1 8-6 12-5-4-7-9-6-12 1-3 4-4 6-4z"/><path d="M12 4c-1-1-3-2-3-2s1 2 1 3" stroke="currentColor" stroke-width="0.8" fill="none"/></svg>
+      </span>
+      <span class="text-[var(--color-leaf-dark)]">Розсада від Ігоря</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1 text-base">
+      <a href="/pomidory" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/pomidory') ? 'font-semibold text-[var(--color-tomato-dark)]' : ''}`}>Помідори</a>
+      <a href="/pertsi" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/pertsi') ? 'font-semibold text-[var(--color-pepper)]' : ''}`}>Перці</a>
+      <a href="/dohliad" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/dohliad') ? 'font-semibold' : ''}`}>Догляд</a>
+      <a href="/kontakty" class={`px-3 py-2 rounded-md hover:bg-[var(--color-bg-soft)] transition-colors ${isActive('/kontakty') ? 'font-semibold' : ''}`}>Контакти</a>
+    </nav>
+    <a href={phone.href}
+       class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-leaf)] text-white font-semibold hover:bg-[var(--color-leaf-dark)] hover:shadow-lg hover:shadow-[var(--color-leaf)]/25 transition-all min-h-[44px]">
+      <span aria-hidden="true">📞</span>
+      <span class="text-sm">{phone.display}</span>
+    </a>
+  </div>
+  <nav class="md:hidden border-t border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur overflow-x-auto">
+    <div class="flex items-center text-sm">
+      <a href="/pomidory" class={`flex-1 text-center px-3 py-3 ${isActive('/pomidory') ? 'font-semibold text-[var(--color-tomato-dark)] border-b-2 border-[var(--color-tomato)]' : ''}`}>Помідори</a>
+      <a href="/pertsi" class={`flex-1 text-center px-3 py-3 ${isActive('/pertsi') ? 'font-semibold text-[var(--color-pepper)] border-b-2 border-[var(--color-pepper)]' : ''}`}>Перці</a>
+      <a href="/dohliad" class={`flex-1 text-center px-3 py-3 ${isActive('/dohliad') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Догляд</a>
+      <a href="/kontakty" class={`flex-1 text-center px-3 py-3 ${isActive('/kontakty') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Контакти</a>
+    </div>
+  </nav>
+</header>

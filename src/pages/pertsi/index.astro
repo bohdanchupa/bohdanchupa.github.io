@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import VarietyCard from '../../components/VarietyCard.astro';
+import CategoryFilters from '../../components/CategoryFilters.astro';
+
+const all = await getCollection('varieties');
+const peppers = all.filter((v) => v.data.category === 'pepper');
+peppers.sort((a, b) => a.data.name.localeCompare(b.data.name, 'uk'));
+---
+<Base
+  title="Перці — каталог сортів"
+  description="Каталог сортів солодкого перцю від Ігоря. Розсада у Львові. Опис, характеристики, поради."
+>
+  <div class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+    <nav class="text-sm text-[var(--color-muted)] mb-4">
+      <a href="/" class="hover:underline">Головна</a> <span aria-hidden="true">›</span> Перці
+    </nav>
+    <span class="section-eyebrow">Каталог · {peppers.length} сортів</span>
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-3">Перці</h1>
+    <p class="text-lg text-[var(--color-muted)] mb-8 max-w-2xl">Сорти солодкого перцю — товстостінні, ранні та крупноплідні. Усі добре зав'язують плоди у нашому кліматі.</p>
+
+    <CategoryFilters category="pepper" />
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+      {peppers.map((v) => <VarietyCard variety={v} />)}
+    </div>
+  </div>
+</Base>

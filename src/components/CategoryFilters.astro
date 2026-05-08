@@ -1,0 +1,63 @@
+---
+interface Props {
+  category: 'tomato' | 'pepper';
+}
+const { category } = Astro.props;
+---
+<form data-filter-form class="rounded-2xl bg-[var(--color-surface)] ring-1 ring-black/5 p-4 sm:p-5 mb-8">
+  <div class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-3">Дозрівання</div>
+  <div class="flex flex-wrap gap-2 mb-4">
+    <label class="chip"><input type="radio" name="rip" value="" checked /><span>Усі</span></label>
+    <label class="chip"><input type="radio" name="rip" value="early" /><span>Ранні</span></label>
+    <label class="chip"><input type="radio" name="rip" value="mid" /><span>Середні</span></label>
+  </div>
+
+  {category === 'tomato' && (
+    <>
+      <div class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-3">Тип куща</div>
+      <div class="flex flex-wrap gap-2">
+        <label class="chip"><input type="radio" name="t" value="" checked /><span>Будь-який</span></label>
+        <label class="chip"><input type="radio" name="t" value="determinate" /><span>Низькі</span></label>
+        <label class="chip"><input type="radio" name="t" value="indeterminate" /><span>Високі</span></label>
+      </div>
+    </>
+  )}
+
+  <p data-empty class="hidden text-[var(--color-muted)] text-sm mt-4">Немає сортів за цими фільтрами.</p>
+</form>
+
+<script>
+  const RIP_GROUPS: Record<string, string[]> = {
+    early: ['early', 'ранній'],
+    mid: ['mid', 'mid-early', 'середній', 'середньоранній'],
+    late: ['late', 'пізній'],
+  };
+  const TYPE_GROUPS: Record<string, string[]> = {
+    determinate: ['determinate', 'semi-determinate'],
+    indeterminate: ['indeterminate'],
+  };
+
+  function applyFilter(form: HTMLFormElement) {
+    const fd = new FormData(form);
+    const rip = String(fd.get('rip') ?? '');
+    const t = String(fd.get('t') ?? '');
+    const cards = document.querySelectorAll<HTMLElement>('[data-variety]');
+    let visible = 0;
+    cards.forEach((card) => {
+      const cardRip = (card.dataset.ripening ?? '').toLowerCase();
+      const cardType = (card.dataset.type ?? '').toLowerCase();
+      const matchRip = !rip || (RIP_GROUPS[rip] ?? []).includes(cardRip);
+      const matchType = !t || (TYPE_GROUPS[t] ?? []).includes(cardType);
+      const show = matchRip && matchType;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    const empty = form.querySelector<HTMLElement>('[data-empty]');
+    if (empty) empty.classList.toggle('hidden', visible > 0);
+  }
+
+  document.querySelectorAll<HTMLFormElement>('[data-filter-form]').forEach((form) => {
+    form.addEventListener('change', () => applyFilter(form));
+    form.addEventListener('submit', (e) => e.preventDefault());
+  });
+</script>

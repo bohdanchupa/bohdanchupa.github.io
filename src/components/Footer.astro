@@ -1,0 +1,32 @@
+---
+import { SITE } from '../site.config';
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-surface)] mt-12">
+  <div class="max-w-5xl mx-auto px-4 py-8 grid sm:grid-cols-3 gap-6 text-sm">
+    <div>
+      <div class="font-semibold text-base mb-2">{SITE.name}</div>
+      <p class="text-[var(--color-muted)]">Розсада помідорів і перців у Львові. Перевірені сорти.</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-2">Контакти</div>
+      <p>
+        <a href={SITE.phone.href} class="text-[var(--color-leaf-dark)] font-semibold">{SITE.phone.display}</a>
+      </p>
+      <p class="text-[var(--color-muted)] mt-1">{SITE.owner.name}</p>
+      <p class="text-[var(--color-muted)]">Львів, Україна</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-2">Розділи</div>
+      <ul class="space-y-1">
+        <li><a href="/pomidory" class="hover:underline">Помідори</a></li>
+        <li><a href="/pertsi" class="hover:underline">Перці</a></li>
+        <li><a href="/dohliad" class="hover:underline">Догляд</a></li>
+        <li><a href="/kontakty" class="hover:underline">Контакти</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-[var(--color-border)] py-4 text-center text-xs text-[var(--color-muted)]">
+    © {year} {SITE.owner.name}
+  </div>
+</footer>

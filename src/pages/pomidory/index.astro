@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import VarietyCard from '../../components/VarietyCard.astro';
+import CategoryFilters from '../../components/CategoryFilters.astro';
+
+const all = await getCollection('varieties');
+const tomatoes = all.filter((v) => v.data.category === 'tomato');
+tomatoes.sort((a, b) => a.data.name.localeCompare(b.data.name, 'uk'));
+---
+<Base
+  title="Помідори — каталог сортів"
+  description="Каталог сортів помідорів від Ігоря. Розсада у Львові. Опис, характеристики, поради по догляду."
+>
+  <div class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+    <nav class="text-sm text-[var(--color-muted)] mb-4">
+      <a href="/" class="hover:underline">Головна</a> <span aria-hidden="true">›</span> Помідори
+    </nav>
+    <span class="section-eyebrow">Каталог · {tomatoes.length} сортів</span>
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-3">Помідори</h1>
+    <p class="text-lg text-[var(--color-muted)] mb-8 max-w-2xl">Перевірені сорти для городу або теплиці у Західній Україні. Натисніть на картку — побачите опис, характеристики й поради по догляду.</p>
+
+    <CategoryFilters category="tomato" />
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+      {tomatoes.map((v) => <VarietyCard variety={v} />)}
+    </div>
+  </div>
+</Base>

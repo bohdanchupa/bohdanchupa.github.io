@@ -1,0 +1,11 @@
+---
+import { SITE } from '../site.config';
+---
+<a
+  href={SITE.phone.href}
+  class="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-center gap-3 bg-[var(--color-leaf)] text-white font-semibold py-4 px-4 text-lg shadow-[0_-4px_12px_rgba(0,0,0,0.08)]"
+  style="padding-bottom: calc(1rem + env(safe-area-inset-bottom));"
+>
+  <span aria-hidden="true">📞</span>
+  <span>Зателефонувати — {SITE.phone.display}</span>
+</a>

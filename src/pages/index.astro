@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import VarietyCard from '../components/VarietyCard.astro';
+import MarketSchedule from '../components/MarketSchedule.astro';
+import PhoneCTA from '../components/PhoneCTA.astro';
+import { getAboutImage } from '../lib/images';
+import { SITE } from '../site.config';
+
+const all = await getCollection('varieties');
+const tomatoes = all.filter((v) => v.data.category === 'tomato');
+const peppers = all.filter((v) => v.data.category === 'pepper');
+const featured = [...tomatoes.slice(0, 4), ...peppers.slice(0, 2)];
+
+const igor = getAboutImage('igor');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: SITE.name,
+  description: SITE.description,
+  url: SITE.url,
+  telephone: SITE.phone.raw,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Львів',
+    addressCountry: 'UA',
+  },
+};
+---
+<Base title="Розсада помідорів і перців у Львові" schema={schema}>
+  <section class="hero-grain border-b border-[var(--color-border)]">
+    <div class="max-w-5xl mx-auto px-4 py-14 sm:py-24 grid md:grid-cols-[1.15fr_1fr] gap-10 sm:gap-16 items-center">
+      <div>
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur ring-1 ring-black/5 text-sm font-medium text-[var(--color-text)] mb-6">
+          <span class="size-2 rounded-full bg-[var(--color-leaf)] animate-pulse" aria-hidden="true"></span>
+          Сезон 2026 · {tomatoes.length + peppers.length} сортів
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-extrabold leading-[1.02] mb-6">
+          Розсада <span class="gradient-text">помідорів</span><br />
+          і перців у&nbsp;Львові
+        </h1>
+        <p class="text-lg sm:text-xl text-[var(--color-muted)] mb-8 max-w-prose leading-relaxed">
+          Перевірені сорти, які добре йдуть у нашому кліматі. Опис, поради по догляду, фото справжніх кущів — без маркетингового шуму.
+        </p>
+        <div class="flex flex-wrap gap-3 mb-8">
+          <PhoneCTA />
+          <a href="/pomidory" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-white ring-1 ring-[var(--color-border)] hover:ring-[var(--color-leaf)] hover:bg-[var(--color-bg-soft)] min-h-[48px] transition-all">
+            Каталог сортів
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[var(--color-muted)]">
+          <div class="flex items-center gap-2">
+            <span aria-hidden="true">📍</span>
+            <span>Львів</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span aria-hidden="true">🌱</span>
+            <span>Розсада свого вирощування</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span aria-hidden="true">📞</span>
+            <a href={SITE.phone.href} class="font-medium hover:underline">{SITE.phone.display}</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative justify-self-center md:justify-self-end">
+        {igor && (
+          <>
+            <div class="absolute -inset-8 rounded-full bg-gradient-to-br from-[var(--color-leaf)]/25 via-[var(--color-accent)]/20 to-[var(--color-tomato)]/20 blur-3xl" aria-hidden="true"></div>
+            <div class="relative size-64 sm:size-80 rounded-full overflow-hidden ring-[10px] ring-white shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]">
+              <Image
+                src={igor}
+                alt="Ігор з врожаєм томатів"
+                widths={[320, 480, 640]}
+                sizes="(max-width: 640px) 256px, 320px"
+                loading="eager"
+                class="avatar-igor w-full h-full"
+              />
+            </div>
+            <div class="absolute -bottom-3 sm:bottom-2 right-0 sm:-right-6 bg-white rounded-2xl ring-1 ring-black/5 shadow-xl px-5 py-3 text-sm">
+              <div class="font-bold text-[var(--color-leaf-dark)]">{SITE.owner.name}</div>
+              <div class="text-[var(--color-muted)] text-xs mt-0.5">Вирощую сам, без посередників</div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 py-14 sm:py-20">
+    <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+      <a href="/pomidory" class="card-hover group rounded-3xl overflow-hidden bg-white ring-1 ring-black/5 p-7 sm:p-9 relative">
+        <div class="absolute -top-12 -right-12 size-48 bg-gradient-to-br from-[var(--color-tomato)]/15 to-transparent rounded-full blur-2xl" aria-hidden="true"></div>
+        <div class="relative">
+          <div class="size-14 rounded-2xl bg-[#FEE2E2] flex items-center justify-center text-3xl mb-5" aria-hidden="true">🍅</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mb-2 group-hover:text-[var(--color-tomato-dark)] transition-colors">Помідори</h2>
+          <p class="text-[var(--color-muted)] mb-5 leading-relaxed">{tomatoes.length} сортів — від ранніх чері до великих салатних серцеподібних.</p>
+          <span class="inline-flex items-center gap-1 font-semibold text-[var(--color-tomato-dark)] group-hover:gap-2 transition-all">Дивитися каталог <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a href="/pertsi" class="card-hover group rounded-3xl overflow-hidden bg-white ring-1 ring-black/5 p-7 sm:p-9 relative">
+        <div class="absolute -top-12 -right-12 size-48 bg-gradient-to-br from-[var(--color-pepper)]/15 to-transparent rounded-full blur-2xl" aria-hidden="true"></div>
+        <div class="relative">
+          <div class="size-14 rounded-2xl bg-[#FED7AA] flex items-center justify-center text-3xl mb-5" aria-hidden="true">🌶️</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mb-2 group-hover:text-[var(--color-pepper)] transition-colors">Перці</h2>
+          <p class="text-[var(--color-muted)] mb-5 leading-relaxed">{peppers.length} сортів солодкого перцю — товстостінні, скоростиглі та крупноплідні.</p>
+          <span class="inline-flex items-center gap-1 font-semibold text-[var(--color-pepper)] group-hover:gap-2 transition-all">Дивитися каталог <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 pb-14 sm:pb-20">
+    <div class="flex items-end justify-between mb-7 gap-4">
+      <div>
+        <span class="section-eyebrow">Каталог</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold">Популярні сорти</h2>
+      </div>
+      <a href="/pomidory" class="hidden sm:inline-flex items-center gap-1 text-[var(--color-leaf-dark)] font-semibold hover:gap-2 transition-all text-sm">Весь каталог <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
+      {featured.map((v) => <VarietyCard variety={v} />)}
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 pb-14 sm:pb-20">
+    <span class="section-eyebrow">Локація</span>
+    <h2 class="text-2xl sm:text-3xl font-extrabold mb-6">Де знайти</h2>
+    <MarketSchedule />
+  </section>
+</Base>

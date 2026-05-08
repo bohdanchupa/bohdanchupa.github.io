@@ -1,0 +1,112 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import VarietyHero from '../../components/VarietyHero.astro';
+import SpecTable from '../../components/SpecTable.astro';
+import CareAccordion from '../../components/CareAccordion.astro';
+import PhoneCTA from '../../components/PhoneCTA.astro';
+import VarietyCard from '../../components/VarietyCard.astro';
+import { getVarietyMainImage } from '../../lib/images';
+import { SITE } from '../../site.config';
+
+export async function getStaticPaths() {
+  const all = await getCollection('varieties');
+  const tomatoes = all.filter((v) => v.data.category === 'tomato');
+  return tomatoes.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry, all },
+  }));
+}
+
+const { entry, all } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
+const img = getVarietyMainImage(data.slug);
+
+const related = all
+  .filter((v) => v.data.category === 'tomato' && v.data.slug !== data.slug)
+  .slice(0, 3);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: data.name,
+  description: `${data.name} — сорт помідора. ${data.fruit?.taste ?? ''} ${data.fruit?.use ?? ''}`.trim(),
+  image: img ? new URL(img.src, SITE.url).toString() : undefined,
+  brand: { '@type': 'Brand', name: SITE.owner.name },
+  category: 'Розсада помідорів',
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'Person', name: SITE.owner.name, telephone: SITE.phone.raw },
+    priceCurrency: 'UAH',
+    price: '0',
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      priceCurrency: 'UAH',
+      valueAddedTaxIncluded: true,
+    },
+  },
+};
+---
+<Base
+  title={`${data.name} — сорт помідора`}
+  description={`${data.name}: опис, характеристики, поради по догляду. Розсада у Львові від Ігоря.`}
+  ogImage={img?.src}
+  schema={schema}
+>
+  <article class="max-w-5xl mx-auto px-4 py-6 sm:py-10">
+    <VarietyHero data={data} />
+
+    <div class="grid md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-10">
+      <div class="md:col-span-2 space-y-8">
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Характеристики</h2>
+          <SpecTable data={data} />
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Догляд</h2>
+          <CareAccordion data={data} />
+        </section>
+
+        {data.tips && data.tips.length > 0 && (
+          <section>
+            <h2 class="text-2xl font-bold mb-4">Поради</h2>
+            <ul class="space-y-3">
+              {data.tips.map((tip: string) => (
+                <li class="flex gap-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md p-4">
+                  <span class="text-[var(--color-leaf)] flex-shrink-0" aria-hidden="true">✓</span>
+                  <span>{tip}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section class="prose-body">
+          <h2 class="text-2xl font-bold mb-4">Опис</h2>
+          <Content />
+        </section>
+      </div>
+
+      <aside class="md:col-span-1 space-y-4">
+        <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sticky top-24">
+          <h3 class="font-bold text-lg mb-3">Замовити розсаду</h3>
+          <p class="text-sm text-[var(--color-muted)] mb-4">Зателефонуйте — підкажу, скільки маю в наявності, ціну і коли можна забрати.</p>
+          <PhoneCTA fullWidth />
+          <p class="text-sm text-[var(--color-muted)] mt-3">{SITE.owner.name} · Львів</p>
+        </div>
+      </aside>
+    </div>
+
+    {related.length > 0 && (
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold mb-4">Інші сорти помідорів</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+          {related.map((v) => <VarietyCard variety={v} />)}
+        </div>
+      </section>
+    )}
+  </article>
+</Base>

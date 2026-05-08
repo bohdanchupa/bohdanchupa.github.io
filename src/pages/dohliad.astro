@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import PhoneCTA from '../components/PhoneCTA.astro';
+---
+<Base
+  title="Догляд — поради по вирощуванню"
+  description="Загальні поради по вирощуванню розсади помідорів і перцю в Західній Україні: висадка, полив, підживлення, формування."
+>
+  <article class="max-w-3xl mx-auto px-4 py-8 sm:py-10">
+    <nav class="text-sm text-[var(--color-muted)] mb-3">
+      <a href="/" class="hover:underline">Головна</a> <span aria-hidden="true">›</span> Догляд
+    </nav>
+    <h1 class="text-3xl sm:text-4xl font-bold mb-3">Догляд за розсадою</h1>
+    <p class="text-lg text-[var(--color-muted)] mb-8">
+      Загальні поради для умов Західної України. Конкретні цифри по кожному сорту — на сторінці сорту.
+    </p>
+
+    <section class="space-y-6">
+      <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span aria-hidden="true">📅</span> Терміни висадки</h2>
+        <ul class="space-y-2">
+          <li><strong>Помідори у теплицю:</strong> кінець квітня (за прогрітої землі ≥ +12 °C).</li>
+          <li><strong>Помідори у відкритий ґрунт:</strong> 15-20 травня, після останніх заморозків.</li>
+          <li><strong>Перець у теплицю:</strong> 10-15 травня.</li>
+          <li><strong>Перець у відкритий ґрунт:</strong> 20-25 травня (перці більш теплолюбні).</li>
+          <li>Перші 2-3 тижні — обов'язково під агроволокно або плівку.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span aria-hidden="true">💧</span> Полив</h2>
+        <ul class="space-y-2">
+          <li>Тільки <strong>тепла відстояна вода</strong>, ввечері або рано вранці.</li>
+          <li>Поливайте <strong>під корінь</strong>, не на листя — менше ризику фітофторозу.</li>
+          <li>Помідори: 1-2 рази на тиждень рясно. Перець: частіше і неглибоко.</li>
+          <li>Уникайте різких перепадів вологи — від цього плоди тріскаються.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span aria-hidden="true">🌿</span> Підживлення</h2>
+        <ul class="space-y-2">
+          <li><strong>До цвітіння:</strong> азотні (настій коров'яку 1:10 або трав'яний чай).</li>
+          <li><strong>У фазі цвітіння та зав'язування:</strong> фосфорно-калійні.</li>
+          <li><strong>У період наливу плодів:</strong> калій + мікроелементи (бор, магній).</li>
+          <li>Не перегодовуйте азотом у другій половині сезону — отримаєте бадилля замість плодів.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span aria-hidden="true">✂️</span> Формування і підв'язка</h2>
+        <ul class="space-y-2">
+          <li><strong>Індетермінантні томати:</strong> у 1-2 стебла, шпалера обов'язкова.</li>
+          <li><strong>Детермінантні томати:</strong> у 2-3 стебла, кілки достатньо.</li>
+          <li><strong>Перці:</strong> зніміть першу «коронну» квітку — це збільшить врожай.</li>
+          <li>Великоплідні сорти — підв'язуйте окремо кожну кисть.</li>
+          <li>Видаляйте нижнє листя до першої кисті — менше хвороб.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span aria-hidden="true">🛡️</span> Профілактика хвороб</h2>
+        <ul class="space-y-2">
+          <li>Мульчуйте ґрунт — стримує вологу, гальмує сорняки і бруд на листі.</li>
+          <li>У вологе літо — біопрепарати (Фітоспорін, Триходермін) кожні 10-14 днів з кінця червня.</li>
+          <li>Не загущуйте посадки — провітрювання знижує ризик фітофтори.</li>
+          <li>Сівозміна: не садіть пасльонові на тому самому місці частіше ніж раз на 3 роки.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="mt-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg)] p-5 sm:p-6 text-center">
+      <p class="text-lg mb-4">Маєте конкретне питання по сорту чи догляду?</p>
+      <PhoneCTA />
+    </div>
+  </article>
+</Base>

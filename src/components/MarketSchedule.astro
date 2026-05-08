@@ -1,0 +1,33 @@
+---
+import { SITE } from '../site.config';
+const { market } = SITE;
+---
+<div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+  <div class="flex items-start gap-3 mb-3">
+    <span class="text-2xl" aria-hidden="true">📍</span>
+    <div>
+      <h3 class="text-xl font-semibold mb-1">Де знайти на базарі</h3>
+      <p class="text-[var(--color-muted)] text-sm">Львів</p>
+    </div>
+  </div>
+  <dl class="grid sm:grid-cols-2 gap-3 text-base">
+    <div>
+      <dt class="text-sm text-[var(--color-muted)]">Адреса</dt>
+      <dd class="font-medium">{market.address}</dd>
+    </div>
+    <div>
+      <dt class="text-sm text-[var(--color-muted)]">Графік</dt>
+      <dd class="font-medium">{market.schedule}</dd>
+    </div>
+    <div>
+      <dt class="text-sm text-[var(--color-muted)]">Сезон</dt>
+      <dd class="font-medium">{market.season}</dd>
+    </div>
+    <div>
+      <dt class="text-sm text-[var(--color-muted)]">Телефон</dt>
+      <dd>
+        <a href={SITE.phone.href} class="font-semibold text-[var(--color-leaf-dark)]">{SITE.phone.display}</a>
+      </dd>
+    </div>
+  </dl>
+</div>

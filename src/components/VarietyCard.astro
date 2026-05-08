@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import { getVarietyMainImage } from '../lib/images';
+import { ripeningLabel, categoryPath, typeLabel } from '../lib/labels';
+import Badge from './Badge.astro';
+
+interface Props {
+  variety: any;
+}
+const { variety } = Astro.props;
+const data = variety.data;
+const img = getVarietyMainImage(data.slug);
+const href = `${categoryPath(data.category)}/${data.slug}`;
+const tone = data.category === 'tomato' ? 'tomato' : 'pepper';
+---
+<a href={href}
+   data-variety
+   data-ripening={data.ripening}
+   data-type={data.type ?? ''}
+   class="card-hover group flex flex-col overflow-hidden rounded-2xl bg-[var(--color-surface)] ring-1 ring-black/5">
+  <div class="aspect-square bg-[var(--color-bg)] overflow-hidden relative">
+    {img && (
+      <Image
+        src={img}
+        alt={data.name}
+        widths={[320, 480, 640]}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 320px"
+        loading="lazy"
+        class="absolute inset-0 object-cover group-hover:scale-[1.05] transition-transform duration-500 ease-out"
+        style="width: 100%; height: 100%; object-position: center 60%;"
+      />
+    )}
+    <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/45 via-black/15 to-transparent pointer-events-none" aria-hidden="true"></div>
+    <h3 class="absolute inset-x-3 bottom-2 text-white font-bold text-base sm:text-lg leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+      {data.name}
+    </h3>
+  </div>
+  <div class="p-3 sm:p-4 flex flex-wrap gap-1.5">
+    <Badge tone={tone}>{ripeningLabel(data.ripening)}</Badge>
+    {data.type && <Badge tone="leaf">{typeLabel(data.type)}</Badge>}
+    {data.fruit?.weight_g && data.fruit.weight_g !== 'уточнюється' && (
+      <Badge tone="neutral">{data.fruit.weight_g} г</Badge>
+    )}
+  </div>
+</a>

@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Сторінку не знайдено" noindex>
+  <div class="max-w-xl mx-auto px-4 py-16 sm:py-24 text-center">
+    <div class="text-7xl mb-4" aria-hidden="true">🍅</div>
+    <h1 class="text-3xl sm:text-4xl font-bold mb-3">Сторінку не знайдено</h1>
+    <p class="text-lg text-[var(--color-muted)] mb-8">
+      Можливо, ви ввели неправильну адресу, або сторінку видалили.
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a href="/" class="inline-flex items-center justify-center px-5 py-3 rounded-md bg-[var(--color-leaf)] text-white font-semibold hover:bg-[var(--color-leaf-dark)] min-h-[48px]">На головну</a>
+      <a href="/pomidory" class="inline-flex items-center justify-center px-5 py-3 rounded-md border-2 border-[var(--color-leaf)] text-[var(--color-leaf-dark)] font-semibold hover:bg-[var(--color-leaf)] hover:text-white min-h-[48px]">Каталог помідорів</a>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import { getVarietyImages } from '../lib/images';
+import { ripeningLabel, typeLabel, categoryPath, categoryLabelPlural } from '../lib/labels';
+import Badge from './Badge.astro';
+
+interface Props { data: any; }
+const { data } = Astro.props;
+const images = getVarietyImages(data.slug);
+const main = images[0];
+const gallery = images.slice(1);
+const isTomato = data.category === 'tomato';
+const tone = isTomato ? 'tomato' : 'pepper';
+---
+<div class="grid md:grid-cols-2 gap-6 md:gap-8">
+  <div class="space-y-3">
+    {main && (
+      <div class="aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)]">
+        <Image
+          src={main}
+          alt={data.name}
+          widths={[480, 720, 960, 1200]}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          loading="eager"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    )}
+    {gallery.length > 0 && (
+      <div class="grid grid-cols-3 gap-2">
+        {gallery.map((img) => (
+          <div class="aspect-square overflow-hidden rounded-md border border-[var(--color-border)] bg-[var(--color-surface)]">
+            <Image
+              src={img}
+              alt={`${data.name} — додаткове фото`}
+              widths={[160, 240]}
+              sizes="33vw"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+  <div>
+    <nav class="text-sm text-[var(--color-muted)] mb-2">
+      <a href="/" class="hover:underline">Головна</a>
+      <span aria-hidden="true"> › </span>
+      <a href={categoryPath(data.category)} class="hover:underline">{categoryLabelPlural(data.category)}</a>
+      <span aria-hidden="true"> › </span>
+      <span>{data.name}</span>
+    </nav>
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-3">{data.name}</h1>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <Badge tone={tone}>{ripeningLabel(data.ripening)}</Badge>
+      {data.type && <Badge tone="leaf">{typeLabel(data.type)}</Badge>}
+      {data.fruit?.weight_g && <Badge tone="neutral">{data.fruit.weight_g} г</Badge>}
+      {data.height_cm && <Badge tone="neutral">{data.height_cm} см</Badge>}
+      {data.confidence === 'low' && <Badge tone="neutral">дані уточнюються</Badge>}
+    </div>
+    {data.notes && (
+      <p class="text-sm text-[var(--color-muted)] bg-[var(--color-bg)] border border-[var(--color-border)] rounded-md p-3 mb-4">
+        <strong class="font-semibold not-italic text-[var(--color-text)]">Примітка:</strong> {data.notes}
+      </p>
+    )}
+  </div>
+</div>

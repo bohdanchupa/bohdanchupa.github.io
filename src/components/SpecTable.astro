@@ -1,0 +1,35 @@
+---
+import { ripeningLabel, typeLabel } from '../lib/labels';
+interface Props { data: any; }
+const { data } = Astro.props;
+const isTomato = data.category === 'tomato';
+
+const rows: Array<{ label: string; value: string | undefined; icon: string }> = [
+  { label: 'Тип куща', value: isTomato ? typeLabel(data.type) : undefined, icon: '🌿' },
+  { label: 'Перець', value: !isTomato && data.pepper_type ? (data.pepper_type === 'sweet' ? 'солодкий' : data.pepper_type) : undefined, icon: '🌶️' },
+  { label: 'Дозрівання', value: `${ripeningLabel(data.ripening)} (${data.days_to_harvest} дн)`, icon: '📅' },
+  { label: 'Висота куща', value: data.height_cm ? `${data.height_cm} см` : undefined, icon: '📏' },
+  { label: 'Маса плоду', value: data.fruit?.weight_g ? `${data.fruit.weight_g} г` : undefined, icon: '⚖️' },
+  { label: 'Форма', value: data.fruit?.shape, icon: '🔵' },
+  { label: 'Колір', value: data.fruit?.color, icon: '🎨' },
+  { label: 'Колір (тех. стиглість)', value: data.fruit?.color_technical, icon: '🟢' },
+  { label: 'Колір (біол. стиглість)', value: data.fruit?.color_biological, icon: '🔴' },
+  { label: 'Товщина стінки', value: data.fruit?.wall_thickness_mm ? `${data.fruit.wall_thickness_mm} мм` : undefined, icon: '📐' },
+  { label: 'Смак', value: data.fruit?.taste, icon: '👅' },
+  { label: 'Призначення', value: data.fruit?.use, icon: '🍽️' },
+  { label: 'Урожайність', value: data.yield_per_plant_kg ? `${data.yield_per_plant_kg} кг/кущ` : (data.yield_per_m2_kg ? `${data.yield_per_m2_kg} кг/м²` : undefined), icon: '🧺' },
+  { label: 'Стійкість', value: data.disease_resistance?.length ? data.disease_resistance.join(', ') : undefined, icon: '🛡️' },
+];
+const filtered = rows.filter((r) => r.value !== undefined && r.value !== '' && r.value !== 'уточнюється');
+---
+<dl class="grid sm:grid-cols-2 gap-2 sm:gap-3">
+  {filtered.map((r) => (
+    <div class="flex items-start gap-3 px-4 py-3 rounded-xl bg-[var(--color-surface)] ring-1 ring-black/5">
+      <span class="text-lg shrink-0 mt-0.5" aria-hidden="true">{r.icon}</span>
+      <div class="flex-1 min-w-0">
+        <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)] mb-0.5">{r.label}</dt>
+        <dd class="text-base font-medium leading-snug">{r.value}</dd>
+      </div>
+    </div>
+  ))}
+</dl>

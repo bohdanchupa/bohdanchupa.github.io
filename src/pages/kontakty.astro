@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import MarketSchedule from '../components/MarketSchedule.astro';
+import PhoneCTA from '../components/PhoneCTA.astro';
+import { getAboutImage } from '../lib/images';
+import { SITE } from '../site.config';
+
+const igor = getAboutImage('igor');
+---
+<Base
+  title="Контакти"
+  description="Контакти Ігоря: телефон, графік на базарі у Львові, адреса."
+>
+  <article class="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+    <nav class="text-sm text-[var(--color-muted)] mb-3">
+      <a href="/" class="hover:underline">Головна</a> <span aria-hidden="true">›</span> Контакти
+    </nav>
+    <h1 class="text-3xl sm:text-4xl font-bold mb-8">Контакти</h1>
+
+    <div class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8 mb-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center sm:items-start text-center sm:text-left">
+        {igor && (
+          <div class="relative shrink-0">
+            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--color-leaf)]/20 to-[var(--color-tomato)]/20 blur-xl scale-110" aria-hidden="true"></div>
+            <div class="relative size-44 sm:size-52 rounded-full overflow-hidden ring-4 ring-white shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)] outline outline-2 outline-[var(--color-leaf)]/30">
+              <Image
+                src={igor}
+                alt="Ігор з врожаєм томатів"
+                widths={[240, 360, 480]}
+                sizes="208px"
+                class="avatar-igor w-full h-full"
+              />
+            </div>
+          </div>
+        )}
+        <div class="flex-1">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-1">{SITE.owner.name}</h2>
+          <p class="text-[var(--color-muted)] mb-5">Вирощую розсаду помідорів і перцю у Львові. Дзвоніть — підкажу, що в наявності, ціну і коли забрати.</p>
+          <div class="flex flex-wrap gap-3 justify-center sm:justify-start">
+            <PhoneCTA />
+            {igor && (
+              <a href="https://maps.google.com/?q=Львів" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md font-semibold border-2 border-[var(--color-leaf)] text-[var(--color-leaf-dark)] hover:bg-[var(--color-leaf)] hover:text-white min-h-[48px] transition-colors">
+                <span aria-hidden="true">📍</span>
+                <span>Львів</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <MarketSchedule />
+
+    <div class="mt-8 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8 shadow-sm">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4">Як замовити</h2>
+      <ol class="space-y-3">
+        <li class="flex gap-3">
+          <span class="shrink-0 size-7 rounded-full bg-[var(--color-leaf)] text-white text-sm font-bold flex items-center justify-center">1</span>
+          <span>Подивіться <a href="/pomidory" class="text-[var(--color-leaf-dark)] underline font-medium">помідори</a> або <a href="/pertsi" class="text-[var(--color-leaf-dark)] underline font-medium">перці</a> в каталозі.</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="shrink-0 size-7 rounded-full bg-[var(--color-leaf)] text-white text-sm font-bold flex items-center justify-center">2</span>
+          <span>Зателефонуйте: <a href={SITE.phone.href} class="font-semibold text-[var(--color-leaf-dark)]">{SITE.phone.display}</a>.</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="shrink-0 size-7 rounded-full bg-[var(--color-leaf)] text-white text-sm font-bold flex items-center justify-center">3</span>
+          <span>Скажіть, які сорти та скільки кущів.</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="shrink-0 size-7 rounded-full bg-[var(--color-leaf)] text-white text-sm font-bold flex items-center justify-center">4</span>
+          <span>Заберіть на базарі або домовтеся про доставку.</span>
+        </li>
+      </ol>
+    </div>
+  </article>
+</Base>

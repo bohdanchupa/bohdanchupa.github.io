@@ -1,0 +1,46 @@
+---
+interface Props { data: any; }
+const { data } = Astro.props;
+const sections = [
+  { title: 'Полив', icon: '💧', body: data.watering },
+  { title: 'Підживлення', icon: '🌿', body: data.fertilizing },
+  { title: 'Висадка у Західній Україні', icon: '📅', body: data.planting_western_ukraine },
+  { title: 'Схема посадки', icon: '📐', body: data.spacing_cm },
+].filter((s) => s.body && s.body !== 'уточнюється');
+
+let formuvannya = '';
+if (data.pruning && data.pruning !== 'уточнюється' && data.pruning !== false) {
+  const pr =
+    data.pruning === true || data.pruning === 'yes'
+      ? 'потрібне'
+      : data.pruning === 'partial'
+        ? 'часткове'
+        : data.pruning === 'no' || data.pruning === false
+          ? 'не потрібне'
+          : String(data.pruning);
+  formuvannya += `Пасинкування: ${pr}.`;
+  if (data.stems) formuvannya += ` Формування: у ${data.stems} стебло(а).`;
+  if (data.staking === true || data.staking === 'required') formuvannya += ' Підв\'язка обов\'язкова.';
+  else if (data.staking === 'optional') formuvannya += ' Підв\'язка за бажанням.';
+  else if (data.staking === false) formuvannya += ' Підв\'язка не потрібна.';
+}
+if (formuvannya) {
+  sections.unshift({ title: 'Формування', icon: '✂️', body: formuvannya });
+}
+---
+{sections.length > 0 && (
+  <div class="space-y-2">
+    {sections.map((s, i) => (
+      <details class="group rounded-xl bg-[var(--color-surface)] ring-1 ring-black/5 overflow-hidden hover:ring-black/10 transition-shadow" open={i === 0}>
+        <summary class="flex items-center justify-between gap-3 px-4 sm:px-5 py-4 font-semibold min-h-[56px] hover:bg-[var(--color-bg-soft)]/50 transition-colors">
+          <span class="flex items-center gap-3">
+            <span class="size-8 rounded-lg bg-[var(--color-bg-soft)] flex items-center justify-center text-base shrink-0" aria-hidden="true">{s.icon}</span>
+            <span class="text-base sm:text-lg">{s.title}</span>
+          </span>
+          <span aria-hidden="true" class="chevron text-[var(--color-muted)]">▾</span>
+        </summary>
+        <div class="px-4 sm:px-5 pb-5 pt-1 text-base leading-relaxed text-[var(--color-text)]/90 pl-[60px] sm:pl-[68px]">{s.body}</div>
+      </details>
+    ))}
+  </div>
+)}

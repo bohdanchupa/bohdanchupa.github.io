@@ -1,0 +1,19 @@
+---
+import { SITE } from '../site.config';
+interface Props {
+  variant?: 'primary' | 'outline';
+  fullWidth?: boolean;
+  label?: string;
+}
+const { variant = 'primary', fullWidth = false, label } = Astro.props;
+const base = 'inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md font-semibold min-h-[48px] transition-all';
+const styles =
+  variant === 'primary'
+    ? 'bg-[var(--color-tomato)] text-white shadow-md shadow-[var(--color-tomato)]/25 hover:bg-[var(--color-tomato-dark)] hover:shadow-lg hover:shadow-[var(--color-tomato)]/30 hover:-translate-y-0.5'
+    : 'border-2 border-[var(--color-leaf)] text-[var(--color-leaf-dark)] hover:bg-[var(--color-leaf)] hover:text-white';
+const width = fullWidth ? 'w-full' : '';
+---
+<a href={SITE.phone.href} class={`${base} ${styles} ${width}`}>
+  <span aria-hidden="true">📞</span>
+  <span>{label ?? SITE.phone.display}</span>
+</a>
