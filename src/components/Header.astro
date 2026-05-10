@@ -34,13 +34,13 @@ function isActive(href: string) {
     </a>
   </div>
 
-  <nav class="md:hidden border-t border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur overflow-x-auto">
-    <div class="flex items-center text-sm whitespace-nowrap">
-      <a href="/pomidory" class={`flex-1 text-center px-2 py-3 ${isActive('/pomidory') ? 'font-semibold text-[var(--color-tomato-dark)] border-b-2 border-[var(--color-tomato)]' : ''}`}>Помідори</a>
-      <a href="/pertsi" class={`flex-1 text-center px-2 py-3 ${isActive('/pertsi') ? 'font-semibold text-[var(--color-pepper)] border-b-2 border-[var(--color-pepper)]' : ''}`}>Перці</a>
-      <a href="/halereya" class={`flex-1 text-center px-2 py-3 ${isActive('/halereya') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Галерея</a>
-      <a href="/dohliad" class={`flex-1 text-center px-2 py-3 ${isActive('/dohliad') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Догляд</a>
-      <a href="/kontakty" class={`flex-1 text-center px-2 py-3 ${isActive('/kontakty') ? 'font-semibold border-b-2 border-[var(--color-leaf)]' : ''}`}>Контакти</a>
+  <nav class="md:hidden border-t border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur overflow-x-auto -webkit-overflow-scrolling-touch">
+    <div class="flex items-center gap-1.5 px-3 py-2 text-sm whitespace-nowrap">
+      <a href="/pomidory" class={`px-3.5 py-1.5 rounded-full transition-colors ${isActive('/pomidory') ? 'bg-[var(--color-tomato-dark)] text-white font-semibold' : 'bg-[var(--color-bg-soft)] text-[var(--color-text)]'}`}>Помідори</a>
+      <a href="/pertsi" class={`px-3.5 py-1.5 rounded-full transition-colors ${isActive('/pertsi') ? 'bg-[var(--color-pepper)] text-white font-semibold' : 'bg-[var(--color-bg-soft)] text-[var(--color-text)]'}`}>Перці</a>
+      <a href="/halereya" class={`px-3.5 py-1.5 rounded-full transition-colors ${isActive('/halereya') ? 'bg-[var(--color-leaf)] text-white font-semibold' : 'bg-[var(--color-bg-soft)] text-[var(--color-text)]'}`}>Галерея</a>
+      <a href="/dohliad" class={`px-3.5 py-1.5 rounded-full transition-colors ${isActive('/dohliad') ? 'bg-[var(--color-leaf)] text-white font-semibold' : 'bg-[var(--color-bg-soft)] text-[var(--color-text)]'}`}>Догляд</a>
+      <a href="/kontakty" class={`px-3.5 py-1.5 rounded-full transition-colors ${isActive('/kontakty') ? 'bg-[var(--color-leaf)] text-white font-semibold' : 'bg-[var(--color-bg-soft)] text-[var(--color-text)]'}`}>Контакти</a>
     </div>
   </nav>
 </header>

@@ -45,58 +45,58 @@ const schema = {
 ---
 <Base title="Розсада помідорів і перців у Львівській області" schema={schema}>
   <section class="hero-grain border-b border-[var(--color-border)]">
-    <div class="max-w-5xl mx-auto px-4 py-14 sm:py-24 grid md:grid-cols-[1.15fr_1fr] gap-10 sm:gap-16 items-center">
-      <div>
-        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur ring-1 ring-black/5 text-sm font-medium text-[var(--color-text)] mb-6">
+    <div class="max-w-5xl mx-auto px-4 py-10 sm:py-24 grid md:grid-cols-[1.15fr_1fr] gap-8 sm:gap-16 items-center">
+      <div class="order-2 md:order-1">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur ring-1 ring-black/5 text-xs sm:text-sm font-medium text-[var(--color-text)] mb-4 sm:mb-6">
           <span class="size-2 rounded-full bg-[var(--color-leaf)] animate-pulse" aria-hidden="true"></span>
           Сезон 2026 · {tomatoes.length + peppers.length} сортів
         </span>
-        <h1 class="text-4xl sm:text-6xl font-extrabold leading-[1.02] mb-6">
+        <h1 class="text-[clamp(2rem,8vw,3.75rem)] font-extrabold leading-[1.05] mb-4 sm:mb-6">
           Розсада <span class="gradient-text">помідорів</span><br />
           і перців у&nbsp;Львівській&nbsp;області
         </h1>
-        <p class="text-lg sm:text-xl text-[var(--color-muted)] mb-8 max-w-prose leading-relaxed">
+        <p class="text-base sm:text-xl text-[var(--color-muted)] mb-6 sm:mb-8 max-w-prose leading-relaxed">
           Перевірені сорти, які добре йдуть у нашому кліматі. Опис, поради по догляду, фото справжніх кущів — без маркетингового шуму.
         </p>
-        <div class="flex flex-wrap gap-3 mb-8">
+        <div class="flex flex-wrap gap-2.5 sm:gap-3 mb-6 sm:mb-8">
           <PhoneCTA />
-          <a href="/pomidory" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-white ring-1 ring-[var(--color-border)] hover:ring-[var(--color-leaf)] hover:bg-[var(--color-bg-soft)] min-h-[48px] transition-all">
-            Каталог сортів
+          <a href="/pomidory" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold bg-white ring-1 ring-[var(--color-border)] hover:ring-[var(--color-leaf)] hover:bg-[var(--color-bg-soft)] min-h-[48px] transition-all">
+            Каталог
             <span aria-hidden="true">→</span>
           </a>
         </div>
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[var(--color-muted)]">
-          <div class="flex items-center gap-2">
+        <div class="flex sm:flex-wrap gap-2 -mx-4 sm:mx-0 px-4 sm:px-0 overflow-x-auto no-scrollbar sm:overflow-visible">
+          <span class="inline-flex shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-full bg-white ring-1 ring-black/5 text-xs sm:text-sm">
             <span aria-hidden="true">📍</span>
-            <span>Городок · Львівська обл.</span>
-          </div>
-          <div class="flex items-center gap-2">
+            <span class="text-[var(--color-muted)]">Городок · Львівська обл.</span>
+          </span>
+          <span class="inline-flex shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-full bg-white ring-1 ring-black/5 text-xs sm:text-sm">
             <span aria-hidden="true">🌱</span>
-            <span>Розсада свого вирощування</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span aria-hidden="true">📞</span>
-            <a href={SITE.phone.href} class="font-medium hover:underline">{SITE.phone.display}</a>
-          </div>
+            <span class="text-[var(--color-muted)]">Своє вирощування</span>
+          </span>
+          <span class="inline-flex shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-full bg-white ring-1 ring-black/5 text-xs sm:text-sm">
+            <span aria-hidden="true">📅</span>
+            <span class="text-[var(--color-muted)]">Пн-Сб 7:00-12:00</span>
+          </span>
         </div>
       </div>
-      <div class="relative justify-self-center md:justify-self-end">
+      <div class="relative justify-self-center order-1 md:order-2">
         {igor && (
           <>
-            <div class="absolute -inset-8 rounded-full bg-gradient-to-br from-[var(--color-leaf)]/25 via-[var(--color-accent)]/20 to-[var(--color-tomato)]/20 blur-3xl" aria-hidden="true"></div>
-            <div class="relative size-64 sm:size-80 rounded-full overflow-hidden ring-[10px] ring-white shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]">
+            <div class="absolute -inset-6 sm:-inset-8 rounded-full bg-gradient-to-br from-[var(--color-leaf)]/25 via-[var(--color-accent)]/20 to-[var(--color-tomato)]/20 blur-3xl" aria-hidden="true"></div>
+            <div class="relative size-48 sm:size-80 rounded-full overflow-hidden ring-[8px] sm:ring-[10px] ring-white shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] sm:shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]">
               <Image
                 src={igor}
                 alt="Ігор Чупа з врожаєм томатів"
-                widths={[320, 480, 640]}
-                sizes="(max-width: 640px) 256px, 320px"
+                widths={[240, 320, 480, 640]}
+                sizes="(max-width: 640px) 192px, 320px"
                 loading="eager"
                 class="avatar-igor w-full h-full"
               />
             </div>
-            <div class="absolute -bottom-3 sm:bottom-2 right-0 sm:-right-6 bg-white rounded-2xl ring-1 ring-black/5 shadow-xl px-5 py-3 text-sm">
+            <div class="absolute -bottom-2 sm:bottom-2 -right-2 sm:-right-6 bg-white rounded-2xl ring-1 ring-black/5 shadow-xl px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm">
               <div class="font-bold text-[var(--color-leaf-dark)]">{SITE.owner.shortName}</div>
-              <div class="text-[var(--color-muted)] text-xs mt-0.5">Вирощую сам, без посередників</div>
+              <div class="hidden sm:block text-[var(--color-muted)] text-xs mt-0.5">Вирощую сам, без посередників</div>
             </div>
           </>
         )}
@@ -104,8 +104,8 @@ const schema = {
     </div>
   </section>
 
-  <section class="max-w-5xl mx-auto px-4 py-14 sm:py-20">
-    <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+  <section class="max-w-5xl mx-auto px-4 py-10 sm:py-20">
+    <div class="grid md:grid-cols-2 gap-3 sm:gap-6">
       <a href="/pomidory" class="card-hover group rounded-3xl overflow-hidden bg-white ring-1 ring-black/5 p-7 sm:p-9 relative">
         <div class="absolute -top-12 -right-12 size-48 bg-gradient-to-br from-[var(--color-tomato)]/15 to-transparent rounded-full blur-2xl" aria-hidden="true"></div>
         <div class="relative">
@@ -127,22 +127,27 @@ const schema = {
     </div>
   </section>
 
-  <section class="max-w-5xl mx-auto px-4 pb-14 sm:pb-20">
-    <div class="flex items-end justify-between mb-7 gap-4">
+  <section class="max-w-5xl mx-auto px-4 pb-10 sm:pb-20">
+    <div class="flex items-end justify-between mb-5 sm:mb-7 gap-4">
       <div>
         <span class="section-eyebrow">Каталог</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold">Популярні сорти</h2>
       </div>
       <a href="/pomidory" class="hidden sm:inline-flex items-center gap-1 text-[var(--color-leaf-dark)] font-semibold hover:gap-2 transition-all text-sm">Весь каталог <span aria-hidden="true">→</span></a>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-5">
       {featured.map((v) => <VarietyCard variety={v} />)}
     </div>
+    <a href="/pomidory" class="sm:hidden mt-4 flex items-center justify-center gap-2 py-3 rounded-full bg-white ring-1 ring-[var(--color-border)] font-semibold text-[var(--color-leaf-dark)]">
+      Дивитися весь каталог
+      <span aria-hidden="true">→</span>
+    </a>
   </section>
 
-  <section class="max-w-5xl mx-auto px-4 pb-14 sm:pb-20">
+  <section class="max-w-5xl mx-auto px-4 pb-10 sm:pb-20">
     <span class="section-eyebrow">Локація</span>
-    <h2 class="text-2xl sm:text-3xl font-extrabold mb-6">Де знайти</h2>
+    <h2 class="text-2xl sm:text-3xl font-extrabold mb-5 sm:mb-6">Де знайти</h2>
     <MarketSchedule />
   </section>
+
 </Base>

@@ -1,11 +1,27 @@
 ---
 import { SITE } from '../site.config';
 ---
-<a
-  href={SITE.phone.href}
-  class="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-center gap-3 bg-[var(--color-leaf)] text-white font-semibold py-4 px-4 text-lg shadow-[0_-4px_12px_rgba(0,0,0,0.08)]"
-  style="padding-bottom: calc(1rem + env(safe-area-inset-bottom));"
+<div
+  class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[var(--color-surface)]/95 backdrop-blur border-t border-[var(--color-border)] shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.12)]"
+  style="padding-bottom: env(safe-area-inset-bottom);"
 >
-  <span aria-hidden="true">📞</span>
-  <span>Зателефонувати — {SITE.phone.display}</span>
-</a>
+  <div class="flex items-stretch gap-2 p-3">
+    <a
+      href={SITE.phone.href}
+      class="flex-1 flex items-center justify-center gap-2 bg-[var(--color-leaf)] text-white font-bold rounded-full px-4 py-3 shadow-md shadow-[var(--color-leaf)]/25 active:scale-[0.98] transition-transform"
+    >
+      <span aria-hidden="true">📞</span>
+      <span class="text-base">Зателефонувати</span>
+    </a>
+    <a
+      href={SITE.market.mapUrl}
+      target="_blank"
+      rel="noopener"
+      class="flex items-center justify-center gap-1.5 bg-white ring-1 ring-[var(--color-border)] text-[var(--color-text)] font-semibold rounded-full px-4 py-3 active:scale-[0.98] transition-transform"
+      aria-label="Відкрити на мапі"
+    >
+      <span aria-hidden="true">📍</span>
+      <span class="text-sm">Мапа</span>
+    </a>
+  </div>
+</div>

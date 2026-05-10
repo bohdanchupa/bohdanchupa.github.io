@@ -4,7 +4,7 @@ const { market, phone } = SITE;
 ---
 <div class="rounded-3xl bg-[var(--color-surface)] ring-1 ring-black/5 overflow-hidden shadow-sm">
   <div class="grid sm:grid-cols-[1fr_auto] gap-0">
-    <div class="p-6 sm:p-8">
+    <div class="p-5 sm:p-8">
       <div class="flex items-start gap-3 mb-5">
         <span class="size-11 rounded-2xl bg-[var(--color-leaf)]/10 flex items-center justify-center text-2xl shrink-0" aria-hidden="true">📍</span>
         <div>
@@ -34,7 +34,7 @@ const { market, phone } = SITE;
         </div>
       </dl>
 
-      <div class="flex flex-wrap gap-3 mt-6">
+      <div class="flex flex-col sm:flex-row gap-3 mt-6">
         <a href={market.mapUrl} target="_blank" rel="noopener"
            class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[var(--color-leaf)] text-white font-semibold hover:bg-[var(--color-leaf-dark)] hover:shadow-lg hover:shadow-[var(--color-leaf)]/25 transition-all min-h-[48px]">
           <span aria-hidden="true">🗺️</span>
@@ -49,7 +49,7 @@ const { market, phone } = SITE;
       </div>
     </div>
 
-    <div class="hidden sm:flex flex-col gap-2 p-6 bg-[var(--color-bg-soft)] min-w-[220px]">
+    <div class="sm:flex flex-col gap-2 px-5 sm:px-6 py-5 sm:py-6 bg-[var(--color-bg-soft)] sm:min-w-[220px] border-t sm:border-t-0 sm:border-l border-[var(--color-border)]">
       <div class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-2">Графік на тиждень</div>
       <ul class="space-y-1.5 text-sm">
         <li class="flex justify-between"><span>Понеділок</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
