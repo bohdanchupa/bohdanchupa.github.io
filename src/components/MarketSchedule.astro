@@ -51,14 +51,14 @@ const { market, phone } = SITE;
 
     <div class="sm:flex flex-col gap-2 px-5 sm:px-6 py-5 sm:py-6 bg-[var(--color-bg-soft)] sm:min-w-[220px] border-t sm:border-t-0 sm:border-l border-[var(--color-border)]">
       <div class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-2">Графік на тиждень</div>
-      <ul class="space-y-1.5 text-sm">
-        <li class="flex justify-between"><span>Понеділок</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
-        <li class="flex justify-between"><span>Вівторок</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
-        <li class="flex justify-between"><span>Середа</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
-        <li class="flex justify-between"><span>Четвер</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
-        <li class="flex justify-between"><span>П'ятниця</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
-        <li class="flex justify-between"><span>Субота</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
-        <li class="flex justify-between text-[var(--color-muted)]"><span>Неділя</span><span>вихідний</span></li>
+      <ul class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+        <li class="contents"><span>Понеділок</span><span class="font-semibold tabular-nums text-right">7:00 – 12:00</span></li>
+        <li class="contents"><span>Вівторок</span><span class="font-semibold tabular-nums text-right">7:00 – 12:00</span></li>
+        <li class="contents"><span>Середа</span><span class="font-semibold tabular-nums text-right">7:00 – 12:00</span></li>
+        <li class="contents"><span>Четвер</span><span class="font-semibold tabular-nums text-right">7:00 – 12:00</span></li>
+        <li class="contents"><span>П'ятниця</span><span class="font-semibold tabular-nums text-right">7:00 – 12:00</span></li>
+        <li class="contents"><span>Субота</span><span class="font-semibold tabular-nums text-right">7:00 – 12:00</span></li>
+        <li class="contents text-[var(--color-muted)]"><span>Неділя</span><span class="text-right">вихідний</span></li>
       </ul>
     </div>
   </div>
