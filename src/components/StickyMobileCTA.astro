@@ -2,25 +2,25 @@
 import { SITE } from '../site.config';
 ---
 <div
-  class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[var(--color-surface)]/95 backdrop-blur border-t border-[var(--color-border)] shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.12)]"
+  class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[var(--color-border)] shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.12)]"
   style="padding-bottom: env(safe-area-inset-bottom);"
 >
-  <div class="flex items-stretch gap-2 p-3">
+  <div class="flex items-stretch gap-2 px-3 py-2.5">
     <a
       href={SITE.phone.href}
-      class="flex-1 flex items-center justify-center gap-2 bg-[var(--color-leaf)] text-white font-bold rounded-full px-4 py-3 shadow-md shadow-[var(--color-leaf)]/25 active:scale-[0.98] transition-transform"
+      class="flex-1 flex items-center justify-center gap-2 bg-[var(--color-leaf)] hover:bg-[var(--color-leaf-dark)] active:scale-[0.98] text-white font-bold rounded-full px-4 py-3 shadow-md shadow-[var(--color-leaf)]/30 transition-all whitespace-nowrap min-h-[48px]"
     >
-      <span aria-hidden="true">📞</span>
-      <span class="text-base">Зателефонувати</span>
+      <span aria-hidden="true" class="text-lg">📞</span>
+      <span class="text-[15px] sm:text-base">Зателефонувати</span>
     </a>
     <a
       href={SITE.market.mapUrl}
       target="_blank"
       rel="noopener"
-      class="flex items-center justify-center gap-1.5 bg-white ring-1 ring-[var(--color-border)] text-[var(--color-text)] font-semibold rounded-full px-4 py-3 active:scale-[0.98] transition-transform"
+      class="flex items-center justify-center gap-1.5 bg-[var(--color-bg-soft)] hover:bg-white ring-1 ring-[var(--color-border)] text-[var(--color-text)] font-semibold rounded-full px-4 py-3 active:scale-[0.98] transition-all whitespace-nowrap min-h-[48px]"
       aria-label="Відкрити на мапі"
     >
-      <span aria-hidden="true">📍</span>
+      <span aria-hidden="true" class="text-lg">📍</span>
       <span class="text-sm">Мапа</span>
     </a>
   </div>
