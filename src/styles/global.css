@@ -109,8 +109,11 @@ details > summary::-webkit-details-marker {
 }
 
 .avatar-igor {
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
-  object-position: 46% 33%;
+  object-position: 50% 30%;
+  display: block;
 }
 
 .card-hover {
