@@ -1,33 +1,65 @@
 ---
 import { SITE } from '../site.config';
-const { market } = SITE;
+const { market, phone } = SITE;
 ---
-<div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
-  <div class="flex items-start gap-3 mb-3">
-    <span class="text-2xl" aria-hidden="true">📍</span>
-    <div>
-      <h3 class="text-xl font-semibold mb-1">Де знайти на базарі</h3>
-      <p class="text-[var(--color-muted)] text-sm">Львів</p>
+<div class="rounded-3xl bg-[var(--color-surface)] ring-1 ring-black/5 overflow-hidden shadow-sm">
+  <div class="grid sm:grid-cols-[1fr_auto] gap-0">
+    <div class="p-6 sm:p-8">
+      <div class="flex items-start gap-3 mb-5">
+        <span class="size-11 rounded-2xl bg-[var(--color-leaf)]/10 flex items-center justify-center text-2xl shrink-0" aria-hidden="true">📍</span>
+        <div>
+          <h3 class="text-xl sm:text-2xl font-extrabold leading-tight mb-0.5">Де знайти на базарі</h3>
+          <p class="text-[var(--color-muted)] text-sm">Городок, Львівська область</p>
+        </div>
+      </div>
+
+      <dl class="space-y-4">
+        <div>
+          <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-1">Адреса</dt>
+          <dd class="font-medium leading-snug">{market.address}</dd>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-1">Дні</dt>
+            <dd class="font-medium">{market.days}</dd>
+          </div>
+          <div>
+            <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-1">Години</dt>
+            <dd class="font-medium tabular-nums">{market.hours}</dd>
+          </div>
+        </div>
+        <div>
+          <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-1">Сезон</dt>
+          <dd class="font-medium">{market.season}</dd>
+        </div>
+      </dl>
+
+      <div class="flex flex-wrap gap-3 mt-6">
+        <a href={market.mapUrl} target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[var(--color-leaf)] text-white font-semibold hover:bg-[var(--color-leaf-dark)] hover:shadow-lg hover:shadow-[var(--color-leaf)]/25 transition-all min-h-[48px]">
+          <span aria-hidden="true">🗺️</span>
+          <span>Відкрити на мапі</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href={phone.href}
+           class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white ring-1 ring-[var(--color-border)] hover:ring-[var(--color-leaf)] font-semibold transition-all min-h-[48px]">
+          <span aria-hidden="true">📞</span>
+          <span>{phone.display}</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hidden sm:flex flex-col gap-2 p-6 bg-[var(--color-bg-soft)] min-w-[220px]">
+      <div class="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-2">Графік на тиждень</div>
+      <ul class="space-y-1.5 text-sm">
+        <li class="flex justify-between"><span>Понеділок</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
+        <li class="flex justify-between"><span>Вівторок</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
+        <li class="flex justify-between"><span>Середа</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
+        <li class="flex justify-between"><span>Четвер</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
+        <li class="flex justify-between"><span>П'ятниця</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
+        <li class="flex justify-between"><span>Субота</span><span class="font-semibold tabular-nums">7:00 – 12:00</span></li>
+        <li class="flex justify-between text-[var(--color-muted)]"><span>Неділя</span><span>вихідний</span></li>
+      </ul>
     </div>
   </div>
-  <dl class="grid sm:grid-cols-2 gap-3 text-base">
-    <div>
-      <dt class="text-sm text-[var(--color-muted)]">Адреса</dt>
-      <dd class="font-medium">{market.address}</dd>
-    </div>
-    <div>
-      <dt class="text-sm text-[var(--color-muted)]">Графік</dt>
-      <dd class="font-medium">{market.schedule}</dd>
-    </div>
-    <div>
-      <dt class="text-sm text-[var(--color-muted)]">Сезон</dt>
-      <dd class="font-medium">{market.season}</dd>
-    </div>
-    <div>
-      <dt class="text-sm text-[var(--color-muted)]">Телефон</dt>
-      <dd>
-        <a href={SITE.phone.href} class="font-semibold text-[var(--color-leaf-dark)]">{SITE.phone.display}</a>
-      </dd>
-    </div>
-  </dl>
 </div>

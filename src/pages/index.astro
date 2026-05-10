@@ -24,9 +24,13 @@ const schema = {
   telephone: SITE.phone.raw,
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Львів',
+    addressLocality: 'Городок',
+    addressRegion: 'Львівська область',
     addressCountry: 'UA',
+    streetAddress: SITE.market.address,
   },
+  openingHours: SITE.market.schemaHours,
+  hasMap: SITE.market.mapUrl,
 };
 ---
 <Base title="Розсада помідорів і перців у Львові" schema={schema}>

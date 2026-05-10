@@ -14,8 +14,12 @@ export const SITE = {
     name: 'Ігор',
   },
   market: {
-    address: 'Львів (адресу буде уточнено)',
-    schedule: 'Графік буде уточнено',
-    season: 'Квітень — травень',
+    address: 'Городок, навпроти магазину «Світ електрики»',
+    schedule: 'Пн – Сб · 7:00 – 12:00',
+    days: 'Понеділок – Субота',
+    hours: '7:00 – 12:00',
+    season: 'Квітень – травень',
+    mapUrl: 'https://maps.app.goo.gl/mVBkq2YkgVq9wBkX9',
+    schemaHours: 'Mo-Sa 07:00-12:00',
   },
 };

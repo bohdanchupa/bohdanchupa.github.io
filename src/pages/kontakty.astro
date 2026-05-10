@@ -39,12 +39,10 @@ const igor = getAboutImage('igor');
           <p class="text-[var(--color-muted)] mb-5">Вирощую розсаду помідорів і перцю у Львові. Дзвоніть — підкажу, що в наявності, ціну і коли забрати.</p>
           <div class="flex flex-wrap gap-3 justify-center sm:justify-start">
             <PhoneCTA />
-            {igor && (
-              <a href="https://maps.google.com/?q=Львів" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md font-semibold border-2 border-[var(--color-leaf)] text-[var(--color-leaf-dark)] hover:bg-[var(--color-leaf)] hover:text-white min-h-[48px] transition-colors">
-                <span aria-hidden="true">📍</span>
-                <span>Львів</span>
-              </a>
-            )}
+            <a href={SITE.market.mapUrl} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold border-2 border-[var(--color-leaf)] text-[var(--color-leaf-dark)] hover:bg-[var(--color-leaf)] hover:text-white min-h-[48px] transition-colors">
+              <span aria-hidden="true">📍</span>
+              <span>Городок · мапа</span>
+            </a>
           </div>
         </div>
       </div>
