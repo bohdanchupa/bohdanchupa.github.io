@@ -7,6 +7,7 @@ const year = new Date().getFullYear();
     <div>
       <div class="font-semibold text-base mb-2">{SITE.name}</div>
       <p class="text-[var(--color-muted)]">Розсада помідорів і перців у Львівській області. Перевірені сорти.</p>
+      <p class="text-[var(--color-muted)] text-xs mt-1">{SITE.owner.name} · {SITE.owner.village}</p>
     </div>
     <div>
       <div class="font-semibold mb-2">Контакти</div>
@@ -14,12 +15,12 @@ const year = new Date().getFullYear();
         <a href={SITE.phone.href} class="text-[var(--color-leaf-dark)] font-semibold">{SITE.phone.display}</a>
       </p>
       <p class="text-[var(--color-muted)] mt-1">{SITE.owner.name}</p>
-      <p class="text-[var(--color-muted)]">Львів, Україна</p>
+      <p class="text-[var(--color-muted)]">{SITE.owner.village}</p>
     </div>
     <div>
       <div class="font-semibold mb-2">Розділи</div>
       <ul class="space-y-1">
-        <li><a href="/pomidory" class="hover:underline">Помідори</a></li>
+            <li><a href="/pomidory" class="hover:underline">Помідори</a></li>
         <li><a href="/pertsi" class="hover:underline">Перці</a></li>
         <li><a href="/halereya" class="hover:underline">Галерея</a></li>
         <li><a href="/dohliad" class="hover:underline">Догляд</a></li>

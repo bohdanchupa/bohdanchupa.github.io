@@ -51,7 +51,7 @@ const schema = {
 ---
 <Base
   title={`${data.name} — сорт помідора`}
-  description={`${data.name}: опис, характеристики, поради по догляду. Розсада у Львівській області від Ігоря.`}
+  description={`${data.name}: опис, характеристики, поради по догляду. Розсада у Львівській області від Ігоря Чупи.`}
   ogImage={img?.src}
   schema={schema}
 >
@@ -95,7 +95,7 @@ const schema = {
           <h3 class="font-bold text-lg mb-3">Замовити розсаду</h3>
           <p class="text-sm text-[var(--color-muted)] mb-4">Зателефонуйте — підкажу, скільки маю в наявності, ціну і коли можна забрати.</p>
           <PhoneCTA fullWidth />
-          <p class="text-sm text-[var(--color-muted)] mt-3">{SITE.owner.name} · Львів</p>
+          <p class="text-sm text-[var(--color-muted)] mt-3">{SITE.owner.name} · {SITE.owner.village}</p>
         </div>
       </aside>
     </div>

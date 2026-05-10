@@ -10,7 +10,7 @@ const igor = getAboutImage('igor');
 ---
 <Base
   title="Контакти"
-  description="Контакти Ігоря: телефон, графік на базарі у Городку (Львівська область), адреса."
+  description="Контакти Ігоря Чупи: телефон, графік на базарі у Городку (Львівська область), адреса."
 >
   <article class="max-w-3xl mx-auto px-4 py-8 sm:py-12">
     <nav class="text-sm text-[var(--color-muted)] mb-3">
@@ -26,7 +26,7 @@ const igor = getAboutImage('igor');
             <div class="relative size-44 sm:size-52 rounded-full overflow-hidden ring-4 ring-white shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)] outline outline-2 outline-[var(--color-leaf)]/30">
               <Image
                 src={igor}
-                alt="Ігор з врожаєм томатів"
+                alt="Ігор Чупа"
                 widths={[240, 360, 480]}
                 sizes="208px"
                 class="avatar-igor w-full h-full"
@@ -36,7 +36,8 @@ const igor = getAboutImage('igor');
         )}
         <div class="flex-1">
           <h2 class="text-2xl sm:text-3xl font-bold mb-1">{SITE.owner.name}</h2>
-          <p class="text-[var(--color-muted)] mb-5">Вирощую розсаду помідорів і перцю у Львівській області. Дзвоніть — підкажу, що в наявності, ціну і коли забрати.</p>
+          <p class="text-[var(--color-muted)] mb-1.5">Вирощую розсаду помідорів і перцю у {SITE.owner.village}. Дзвоніть — підкажу, що в наявності, ціну і коли забрати.</p>
+          <p class="text-sm text-[var(--color-muted)] mb-5"><span aria-hidden="true">🏡</span> {SITE.owner.village}</p>
           <div class="flex flex-wrap gap-3 justify-center sm:justify-start">
             <PhoneCTA />
             <a href={SITE.market.mapUrl} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold border-2 border-[var(--color-leaf)] text-[var(--color-leaf-dark)] hover:bg-[var(--color-leaf)] hover:text-white min-h-[48px] transition-colors">

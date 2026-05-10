@@ -24,13 +24,23 @@ const schema = {
   telephone: SITE.phone.raw,
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Городок',
+    addressLocality: 'с. Переможне',
     addressRegion: 'Львівська область',
     addressCountry: 'UA',
-    streetAddress: SITE.market.address,
+  },
+  location: {
+    '@type': 'Place',
+    name: 'Ринок у Городку',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Городок',
+      addressRegion: 'Львівська область',
+      addressCountry: 'UA',
+      streetAddress: SITE.market.address,
+    },
+    hasMap: SITE.market.mapUrl,
   },
   openingHours: SITE.market.schemaHours,
-  hasMap: SITE.market.mapUrl,
 };
 ---
 <Base title="Розсада помідорів і перців у Львівській області" schema={schema}>
@@ -77,7 +87,7 @@ const schema = {
             <div class="relative size-64 sm:size-80 rounded-full overflow-hidden ring-[10px] ring-white shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]">
               <Image
                 src={igor}
-                alt="Ігор з врожаєм томатів"
+                alt="Ігор Чупа з врожаєм томатів"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 256px, 320px"
                 loading="eager"
@@ -85,7 +95,7 @@ const schema = {
               />
             </div>
             <div class="absolute -bottom-3 sm:bottom-2 right-0 sm:-right-6 bg-white rounded-2xl ring-1 ring-black/5 shadow-xl px-5 py-3 text-sm">
-              <div class="font-bold text-[var(--color-leaf-dark)]">{SITE.owner.name}</div>
+              <div class="font-bold text-[var(--color-leaf-dark)]">{SITE.owner.shortName}</div>
               <div class="text-[var(--color-muted)] text-xs mt-0.5">Вирощую сам, без посередників</div>
             </div>
           </>

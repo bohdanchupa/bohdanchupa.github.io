@@ -10,9 +10,9 @@ export const RIPENING_LABEL: Record<string, string> = {
 };
 
 export const TYPE_LABEL: Record<string, string> = {
-  determinate: 'детермінантний',
-  'semi-determinate': 'напівдетермінантний',
-  indeterminate: 'індетермінантний',
+  determinate: 'низький кущ',
+  'semi-determinate': 'напіввисокий кущ',
+  indeterminate: 'високий кущ',
 };
 
 export const CONFIDENCE_LABEL: Record<string, string> = {
